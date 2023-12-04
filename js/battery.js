@@ -20,6 +20,10 @@ function updateBatteryStatus(battery) {
     }
     // STEP 3c: Update the charge level
     chargeLevel.textContent = (battery.level * 100) + "%";
+    url = "https://www.robohash.org/" + battery.level * 100 + ".png";
+    fetch(url).then(response => {
+        document.querySelector("#battery img").src = response.url;
+    });
     chargeMeter.value = battery.level * 100;
 }
 
@@ -27,7 +31,7 @@ function updateBatteryStatus(battery) {
 
 // STEP 2a: Using the getBattery() method of the navigator object, 
 //create a promise to retrieve the battery information
-navigator.getBattery().then(battery => {
+navigator.getBattery().then((battery) => {
     // STEP 2b: See what the battery object contains
     console.log(battery);
     // STEP 3d: Update the battery information when the promise resolves
